@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="/static/css/style.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+
+        $("#show-ratings").click(function(e) {
+          $.get("/ratings")
+           .done(function(string) {
+            $("#dane").val(string);
+          });
+          e.preventDefault();
+        });
+
+        $("#show-avg-all").click(function(e) {
+          $.get("/avg_genre_ratings_all")
+           .done(function(string) {
+            $("#dane").val(string);
+          });
+          e.preventDefault();
+        });
+
+        $("#show-avg-user").click(function(e) {
+          $.get("/avg_genre_ratings_user/" + $("#show-avg-user-input").val())
+           .done(function(string) {
+            $("#dane").val(string);
+          });
+          e.preventDefault();
+        });
+
+        $("#add-new-button").click(function(e) {
+          $.ajax({
+            type: "POST",
+            url: "/ratings",
+            data: {"data": $("#add-new input").val()}
+          })
+          .done(function(message) {
+            alert(message);
+          });
+          e.preventDefault();
+        });
+
+        $("#delete-all").click(function(e) {
+          $.ajax({
+            type: "DELETE",
+            url: "/ratings"
+          })
+          .done(function(message) {
+            alert(message)
+          });
+          e.preventDefault();
+        });
+
+      });
+    </script>
+  </head>
+  <body>
+    <button id="show-ratings">Pokaz oceny</button>
+    <button id="show-avg-all">Pokaz srednie oceny wszystkich</button>
+    <button id="show-avg-user">Pokaz srednie oceny uzytkownika</button>
+    <input id="show-avg-user-input" type="text"/>
+
+    <button id="delete-all">Usun wszystko</button>
+    <div id="the-string">
+      <textArea id="dane" readonly >
+      </textArea>
+    </div>
+      <div id="add-new">
+        <button id="add-new-button">Dodaj wpis</button>
+        <input id="add-new-input" type="text"/>
+    </div>
+  </body>
+</html>

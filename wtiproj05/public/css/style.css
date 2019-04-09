@@ -1,0 +1,14 @@
+body {
+  background-color: white;
+}
+
+
+#dane {
+    width: 100%;
+    height: 50em;
+}
+
+#add-new-input {
+    width: 100%;
+    height: 2em;
+}
