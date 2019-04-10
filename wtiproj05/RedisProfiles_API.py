@@ -3,12 +3,12 @@ import redis
 
 class RedisProfiles:
     def __init__(self):
-        self.list_name = 'profiles'
         self.redis = redis.StrictRedis(host='localhost', port=6381, db=1)
 
 
-    def add_profile(self, rating):
-        self.redis.rpush(self.list_name, rating)
+    def add_profile(self, userID, rating):
+        print(rating)
+        self.redis.set(int(userID), str(rating))
 
     def delete_all(self):
         self.redis.delete(self.list_name)

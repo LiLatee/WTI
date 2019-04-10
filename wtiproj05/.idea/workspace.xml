@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6acb09ad-527c-49aa-9636-60d00785fbc7" name="Default Changelist" comment="" />
+    <list default="true" id="6acb09ad-527c-49aa-9636-60d00785fbc7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API.py" beforeDir="false" afterPath="$PROJECT_DIR$/API.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RedisProfiles_API.py" beforeDir="false" afterPath="$PROJECT_DIR$/RedisProfiles_API.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,8 +18,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cherryPy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-817">
-              <caret line="23" column="35" lean-forward="true" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
+            <state relative-caret-position="361">
+              <caret line="23" column="35" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -25,26 +30,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/API.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="88" selection-start-line="88" selection-end-line="88" />
+            <state relative-caret-position="133">
+              <caret line="58" column="28" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
-                <element signature="e#253#900#0" />
+                <element signature="e#345#992#0" />
                 <element signature="e#1056#1702#0" />
-                <element signature="e#1030#1705#0" />
-                <element signature="e#1814#2364#0" />
-                <element signature="e#2372#2727#0" />
-                <element signature="e#3536#3634#0" />
+                <element signature="e#1755#2445#0" />
+                <element signature="e#2508#3062#0" />
+                <element signature="e#3214#3460#0" />
+                <element signature="e#3121#3492#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RedisRatings_API.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="18" column="25" lean-forward="true" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+            <state relative-caret-position="342">
+              <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -52,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RedisProfiles_API.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
+            <state relative-caret-position="190">
+              <caret line="10" column="48" lean-forward="true" selection-start-line="10" selection-start-column="48" selection-end-line="10" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -83,17 +88,20 @@
       <replace>(self):</replace>
     </replaceStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/cam.py" />
         <option value="$PROJECT_DIR$/public/API_redis.py" />
         <option value="$PROJECT_DIR$/redis_ratings_API.py" />
-        <option value="$PROJECT_DIR$/RedisProfiles_API.py" />
         <option value="$PROJECT_DIR$/API_redis.py" />
         <option value="$PROJECT_DIR$/cherryPy.py" />
-        <option value="$PROJECT_DIR$/API.py" />
         <option value="$PROJECT_DIR$/RedisRatings_API.py" />
+        <option value="$PROJECT_DIR$/API.py" />
+        <option value="$PROJECT_DIR$/RedisProfiles_API.py" />
       </list>
     </option>
   </component>
@@ -103,12 +111,12 @@
     <option name="width" value="431" />
     <option name="height" value="341" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -125,9 +133,11 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/public" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
@@ -151,7 +161,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.cherryPy">
+  <component name="RunManager" selected="Python.API_redis">
     <configuration name="API_redis" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="wtiproj05" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -238,8 +248,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.cherryPy" />
         <item itemvalue="Python.API_redis" />
+        <item itemvalue="Python.cherryPy" />
         <item itemvalue="Python.RedisRatings_API" />
         <item itemvalue="Python.cam" />
       </list>
@@ -267,7 +277,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32957393" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33082706" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33040202" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39974937" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -290,13 +300,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RedisProfiles_API.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/API_old.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -309,37 +312,44 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cherryPy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-817">
-          <caret line="23" column="35" lean-forward="true" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
+        <state relative-caret-position="361">
+          <caret line="23" column="35" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/API.py">
+    <entry file="file://$PROJECT_DIR$/RedisRatings_API.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="88" selection-start-line="88" selection-end-line="88" />
+        <state relative-caret-position="342">
+          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#253#900#0" />
-            <element signature="e#1056#1702#0" />
-            <element signature="e#1030#1705#0" />
-            <element signature="e#1814#2364#0" />
-            <element signature="e#2372#2727#0" />
-            <element signature="e#3536#3634#0" />
+            <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RedisRatings_API.py">
+    <entry file="file://$PROJECT_DIR$/API.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="18" column="25" lean-forward="true" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+        <state relative-caret-position="133">
+          <caret line="58" column="28" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#345#992#0" />
+            <element signature="e#1056#1702#0" />
+            <element signature="e#1755#2445#0" />
+            <element signature="e#2508#3062#0" />
+            <element signature="e#3214#3460#0" />
+            <element signature="e#3121#3492#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RedisProfiles_API.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="48" lean-forward="true" selection-start-line="10" selection-start-column="48" selection-end-line="10" selection-end-column="48" />
         </state>
       </provider>
     </entry>

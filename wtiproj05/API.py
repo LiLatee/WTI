@@ -4,6 +4,7 @@ import numpy as np
 import redis
 from RedisProfiles_API import RedisProfiles
 from RedisRatings_API import RedisRatings
+from pandas.io.json import json_normalize
 
 class RedisApi:
     def __init__(self):
@@ -70,6 +71,20 @@ class RedisApi:
 
         return avg_genre_ratings
 
+    def update_profiles(self):
+        users_ids_set = self.get_ids_of_all_users_as_set()
+
+        for id in users_ids_set:
+            profile_dict = self.get_user_profile_as_dict(id)
+            self.redis_profiles.add_profile(id, profile_dict)
+
+    def get_ids_of_all_users_as_set(self):
+        ratings_json = self.get_all_ratings_as_json()
+        ratings_dict = json.loads(ratings_json, )
+        ratings_dataframe = pd.DataFrame(ratings_dict).T
+        users_ids_set = set(ratings_dataframe['userID'].values)
+        return  users_ids_set
+
     def get_user_profile_as_dict(self, user_id):
         avg_all, _ = self.get_all_avg_ratings_as_dict()
         avg_user = self.get_user_avg_ratings_as_dict(user_id)
@@ -102,14 +117,15 @@ if __name__ == '__main__':
     r = RedisApi()
     # df = r.generate_ratings_as_datafram_from_data()
     # r.fill_redis_from_data()
-    user_avg = r.get_user_avg_ratings_as_dict(75)
-    print(user_avg)
-
-    all_avg, _ = r.get_all_avg_ratings_as_dict()
-    print(all_avg)
-
-    user_profile = r.get_user_profile_as_dict(75)
-    print(user_profile)
-
-    all_ratings = r.get_all_ratings_as_json()
-    print(all_ratings)
+    # user_avg = r.get_user_avg_ratings_as_dict(75)
+    # print(user_avg)
+    #
+    # all_avg, _ = r.get_all_avg_ratings_as_dict()
+    # print(all_avg)
+    #
+    # user_profile = r.get_user_profile_as_dict(75)
+    # print(user_profile)
+    #
+    # all_ratings = r.get_all_ratings_as_json()
+    # print(all_ratings)
+    r.update_profiles()
