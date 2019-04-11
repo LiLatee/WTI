@@ -12,7 +12,6 @@ class RedisApi:
         self.redis_profiles = RedisProfiles()
         self.redis_count = RedisRatingsCount()
 
-
     def get_merged_table_as_dataframe_from_data(self):
         # zad1
         user_rated = pd.read_csv('user_ratedmovies.dat', sep='\t', nrows=100)
@@ -29,7 +28,7 @@ class RedisApi:
 
         return merged, genres_columns
 
-    def generate_ratings_as_datafram_from_data(self):
+    def generate_ratings_as_dataframe_from_data(self):
         user_movie_genre_rating, _ = self.get_merged_table_as_dataframe_from_data()
         # result = result[['userID', 'movieID', 'rating', 'genre']]
         ratings_one_hot = pd.concat(
@@ -73,12 +72,12 @@ class RedisApi:
 
         return avg_genre_ratings
 
-    def update_profiles(self):
+    def update_all_profiles(self):
         avg_all, _ = self.get_all_avg_ratings_as_dict()
         users_ids_set = self.get_ids_of_all_users_as_set()
 
         for id in users_ids_set:
-            avg_user = self.get_user_avg_ratings_as_dict(id)
+            avg_user = self.get_user_avg_ratings_as_dict(user_id=id)
             profile_dict = dict.fromkeys(list(avg_all.keys()), 0)
             for x in avg_all:
                 if np.isnan(avg_user[x]):
@@ -86,7 +85,19 @@ class RedisApi:
                     continue
                 profile_dict[x] = avg_all[x] - avg_user[x]
 
-            self.redis_profiles.add_profile(id, profile_dict)
+            self.redis_profiles.add_profile(user_id=id, rating_dict=profile_dict)
+
+    def update_user_profile_after_insert_rating(self, user_id):
+        avg_all, _ = self.get_all_avg_ratings_as_dict()
+        avg_user = self.get_user_avg_ratings_as_dict(user_id=user_id)
+        profile_dict = dict.fromkeys(list(avg_all.keys()), 0)
+        for x in avg_all:
+            if np.isnan(avg_user[x]):
+                profile_dict[x] = 0
+                continue
+            profile_dict[x] = avg_all[x] - avg_user[x]
+
+        self.redis_profiles.add_profile(user_id=user_id, rating_dict=profile_dict)
 
     def get_ids_of_all_users_as_set(self):
         ratings_json = self.get_all_ratings_as_json()
@@ -96,7 +107,7 @@ class RedisApi:
         return users_ids_set
 
     def get_user_profile_as_dict(self, user_id):
-        return self.redis_profiles.get_profile(user_id)
+        return self.redis_profiles.get_profile_as_dict(user_id)
 
     # def get_user_profile_as_dict(self, user_id):
     #     avg_all, _ = self.get_all_avg_ratings_as_dict()
@@ -115,6 +126,10 @@ class RedisApi:
 
     def post_rating(self, rating):
         self.redis_ratings.add_rating(rating)
+        rating_json = json.loads(rating)
+        rating_dataframe = pd.Series(data=rating_json)
+        rating_dataframe = rating_dataframe.fillna(value=0)
+        self.update_user_profile_after_insert_rating(user_id=rating_dataframe['userID'])
         return "added"
 
     def delete_all_ratings(self):
@@ -122,7 +137,7 @@ class RedisApi:
         return "deleted"
 
     def fill_redis_from_data(self):
-        self.redis_ratings.add_dataframe(self.generate_ratings_as_datafram_from_data())
+        self.redis_ratings.add_dataframe(self.generate_ratings_as_dataframe_from_data())
 
     def update_count_of_ratings(self):
         ratings_dataframe = self.redis_ratings.get_all_as_dataframe()
@@ -132,10 +147,10 @@ class RedisApi:
         count_of_ratings_dict = dict.fromkeys(list_of_genres)
         for id in set_of_users_ids:
             for genre in list_of_genres:
+                count_of_ratings_dict[genre] = 0 # None --> 0
                 count_of_zeros_and_ones = ratings_dataframe.loc[id][genre].value_counts()
                 count_of_ratings_dict[genre] = count_of_zeros_and_ones.get(1.0)
-                print(count_of_ratings_dict)
-                # self.redis_count.add_count(id, pd.DataFrame.from_dict(count_of_ratings_dict).to_json())
+            self.redis_count.add_count(id, count_of_ratings_dict)
 
 
 if __name__ == '__main__':
@@ -153,6 +168,3 @@ if __name__ == '__main__':
     #
     # all_ratings = r.get_all_ratings_as_json()
     # print(all_ratings)
-    r.update_profiles()
-    r = RedisApi()
-    r.update_count_of_ratings()
