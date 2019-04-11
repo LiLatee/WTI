@@ -1,15 +1,17 @@
 import pandas as pd
 import json
 import numpy as np
-import redis
 from RedisProfiles_API import RedisProfiles
 from RedisRatings_API import RedisRatings
-from pandas.io.json import json_normalize
+from RedisRatingsCount_API import RedisRatingsCount
+
 
 class RedisApi:
     def __init__(self):
         self.redis_ratings = RedisRatings()
         self.redis_profiles = RedisProfiles()
+        self.redis_count = RedisRatingsCount()
+
 
     def get_merged_table_as_dataframe_from_data(self):
         # zad1
@@ -72,10 +74,18 @@ class RedisApi:
         return avg_genre_ratings
 
     def update_profiles(self):
+        avg_all, _ = self.get_all_avg_ratings_as_dict()
         users_ids_set = self.get_ids_of_all_users_as_set()
 
         for id in users_ids_set:
-            profile_dict = self.get_user_profile_as_dict(id)
+            avg_user = self.get_user_avg_ratings_as_dict(id)
+            profile_dict = dict.fromkeys(list(avg_all.keys()), 0)
+            for x in avg_all:
+                if np.isnan(avg_user[x]):
+                    profile_dict[x] = 0
+                    continue
+                profile_dict[x] = avg_all[x] - avg_user[x]
+
             self.redis_profiles.add_profile(id, profile_dict)
 
     def get_ids_of_all_users_as_set(self):
@@ -83,18 +93,21 @@ class RedisApi:
         ratings_dict = json.loads(ratings_json, )
         ratings_dataframe = pd.DataFrame(ratings_dict).T
         users_ids_set = set(ratings_dataframe['userID'].values)
-        return  users_ids_set
+        return users_ids_set
 
     def get_user_profile_as_dict(self, user_id):
-        avg_all, _ = self.get_all_avg_ratings_as_dict()
-        avg_user = self.get_user_avg_ratings_as_dict(user_id)
-        difference = dict.fromkeys(list(avg_all.keys()), 0)
-        for x in avg_all:
-            if np.isnan(avg_user[x]):
-                difference[x] = 0
-                continue
-            difference[x] = avg_all[x] - avg_user[x]
-        return difference
+        return self.redis_profiles.get_profile(user_id)
+
+    # def get_user_profile_as_dict(self, user_id):
+    #     avg_all, _ = self.get_all_avg_ratings_as_dict()
+    #     avg_user = self.get_user_avg_ratings_as_dict(user_id)
+    #     difference = dict.fromkeys(list(avg_all.keys()), 0)
+    #     for x in avg_all:
+    #         if np.isnan(avg_user[x]):
+    #             difference[x] = 0
+    #             continue
+    #         difference[x] = avg_all[x] - avg_user[x]
+    #     return difference
 
     def get_all_ratings_as_json(self):
         ratings = self.redis_ratings.get_all_as_dataframe()
@@ -111,6 +124,18 @@ class RedisApi:
     def fill_redis_from_data(self):
         self.redis_ratings.add_dataframe(self.generate_ratings_as_datafram_from_data())
 
+    def update_count_of_ratings(self):
+        ratings_dataframe = self.redis_ratings.get_all_as_dataframe()
+        ratings_dataframe = ratings_dataframe.set_index(keys=['userID', 'movieID', 'rating'])
+        list_of_genres = ratings_dataframe.columns
+        set_of_users_ids = self.get_ids_of_all_users_as_set()
+        count_of_ratings_dict = dict.fromkeys(list_of_genres)
+        for id in set_of_users_ids:
+            for genre in list_of_genres:
+                count_of_zeros_and_ones = ratings_dataframe.loc[id][genre].value_counts()
+                count_of_ratings_dict[genre] = count_of_zeros_and_ones.get(1.0)
+                print(count_of_ratings_dict)
+                # self.redis_count.add_count(id, pd.DataFrame.from_dict(count_of_ratings_dict).to_json())
 
 
 if __name__ == '__main__':
@@ -129,3 +154,5 @@ if __name__ == '__main__':
     # all_ratings = r.get_all_ratings_as_json()
     # print(all_ratings)
     r.update_profiles()
+    r = RedisApi()
+    r.update_count_of_ratings()

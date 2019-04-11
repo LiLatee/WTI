@@ -7,7 +7,11 @@
       $(document).ready(function() {
 
         $("#show-ratings").click(function(e) {
-          $.get("/ratings")
+          // $.get("/ratings")
+          $.ajax({
+            type: "GET",
+            url: "/ratings"
+          })
            .done(function(string) {
             $("#dane").val(string);
           });

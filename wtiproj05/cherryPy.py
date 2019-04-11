@@ -8,26 +8,30 @@ from API import RedisApi
 
 class Ratings(object):
     def __init__(self):
-        # API.getMergedTable()
-        # API.getAllRatings()
         self.API = RedisApi()
+        # self.API.fill_redis_from_data()
+        # self.API.update_profiles()
 
     @cherrypy.expose
     def index(self):
         return open('index.html')
 
     @cherrypy.expose
-    def avg_genre_ratings_user(self, userID):
-        return str(self.API.get_user_avg_ratings_as_dict(int(userID)))
+    def avg_genre_ratings_user(self, user_id):
+        return str(self.API.get_user_avg_ratings_as_dict(int(user_id)))
 
     @cherrypy.expose
-    def user_profile(self, userID):
-        return str(self.API.get_user_profile_as_dict(int(userID)))
+    def user_profile(self, user_id):
+        return str(self.API.get_user_profile_as_dict(int(user_id)))
 
     @cherrypy.expose
     def avg_genre_ratings_all(self):
         avg, _ = self.API.get_all_avg_ratings_as_dict()
         return str(avg)
+
+    # @cherrypy.expose
+    # def ratings(self):
+    #     return str(self.API.get_all_ratings_as_json())
 
 @cherrypy.expose
 class RatingsWebService(object):
@@ -67,6 +71,10 @@ if __name__ == '__main__':
             'tools.response_headers.on': True,
             'tools.response_headers.headers': [('Content-Type', 'text/plain')],
         },
+        # '/ratings': {
+        #     'tools.response_headers.on': True,
+        #     'tools.response_headers.headers': [('Content-Type', 'text/plain')],
+        # },
         '/static': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': './public'
