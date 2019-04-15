@@ -35,5 +35,5 @@ if __name__ == '__main__':
     r = RedisRatings()
     r.add_rating('{"userID": 755,"movieID": 3,"rating": 1,"genre_Adventure": null,"genre_Comedy": 1,"genre_Drama": null,"genre_Fantasy": null,"genre_Mystery": null,"genre_Romance": 1,"genre_Sci-Fi": null,"genre_Thriller": null,"genre_War": null}')
     r.delete_all()
-    result = r.get_all()
+    result = r.get_all_as_dataframe()
     print(result)

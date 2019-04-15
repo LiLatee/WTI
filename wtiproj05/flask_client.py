@@ -5,7 +5,7 @@ import json
 import time
 
 
-def showDetails(r):
+def show_details_of_request(r):
     print('request.url:' + str(r.url))
     print('request.status_code:' + str(r.status_code))
     print('request.headers: ' + str(r.headers))
@@ -18,39 +18,42 @@ def showDetails(r):
     print('request.request.header: ' + str(r.request.headers))
     print('\n\n')
 
-def getRating():
+def get_all_ratings():
     r = requests.get('http://localhost:5000/ratings')
-    showDetails(r)
+    show_details_of_request(r)
 
 def avg_genre_ratings_all_users():
     r = requests.get('http://localhost:5000/avg-genre-ratings/all-users')
-    showDetails(r)
+    show_details_of_request(r)
 
 
 def avg_genre_ratings_user(user_id):
     r = requests.get('http://localhost:5000/avg-genre-ratings/' + user_id)
-    showDetails(r)
+    show_details_of_request(r)
 
 
-def addRating(data):
+def add_rating(data):
     r = requests.post('http://localhost:5000/rating', data= data)
-    showDetails(r)
+    show_details_of_request(r)
 
-def deleteRating():
+def delete_all_ratings():
     r = requests.delete('http://localhost:5000/rating')
-    showDetails(r)
+    show_details_of_request(r)
 
-
+def get_user_profile(user_id):
+    r = requests.get('http://localhost:5000/profiles/' + user_id)
+    show_details_of_request(r)
 
 if __name__ == '__main__':
     menu ='''======MENU======
 1. GET ratings
 2. GET avg-genre-ratings/all-users'
-3. GET avg-genre-ratings/userID
+3. GET avg-genre-ratings/user_id
 4. POST rating
 5. DELETE rating
-5. Wyczysc
-6. Wyjdz
+6. GET user profile
+7. Wyczysc
+8. Wyjdz
 '''
 
     while(True):
@@ -58,21 +61,24 @@ if __name__ == '__main__':
         action = input("Wybierz akcje:")
 
         if action == '1':
-            getRating()
+            get_all_ratings()
         elif action == '2':
             avg_genre_ratings_all_users()
         elif action == '3':
-            userID = input('Podaj ID usera: ')
-            avg_genre_ratings_user(userID)
+            user_id = input('Podaj ID usera: ')
+            avg_genre_ratings_user(user_id)
         elif action == '4':
             data = input('Podaj dane w formacie JSON: ')
             print(data)
-            addRating(data)
+            add_rating(data)
         elif action == '5':
-            deleteRating()
+            delete_all_ratings()
         elif action == '6':
-            os.system('clear')
+            user_id = input('Podaj ID usera: ')
+            get_user_profile(user_id)
         elif action == '7':
+            os.system('clear')
+        elif action == '8':
             print('Paaaa')
             sys.exit()
 

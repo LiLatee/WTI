@@ -33,7 +33,7 @@ def avg_genre_ratings_user(user_id):
 
 
 def addRating(data):
-    r = requests.post('http://localhost:5000/rating', data= data)
+    r = requests.post('http://localhost:5000/rating', data= zdata)
     showDetails(r)
 
 def deleteRating():
