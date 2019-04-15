@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6acb09ad-527c-49aa-9636-60d00785fbc7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../wtiproj03/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../wtiproj03/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../wtiproj03/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/../wtiproj03/client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API.py" beforeDir="false" afterPath="$PROJECT_DIR$/API.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RedisProfiles_API.py" beforeDir="false" afterPath="$PROJECT_DIR$/RedisProfiles_API.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RedisRatingsCount_API.py" beforeDir="false" afterPath="$PROJECT_DIR$/RedisRatingsCount_API.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RedisRatings_API.py" beforeDir="false" afterPath="$PROJECT_DIR$/RedisRatings_API.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherryPy.py" beforeDir="false" afterPath="$PROJECT_DIR$/cherryPy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flask_API.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask_API.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flask_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask_client.py" afterDir="false" />
-    </list>
+    <list default="true" id="6acb09ad-527c-49aa-9636-60d00785fbc7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,8 +25,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/API.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="111" column="29" selection-start-line="111" selection-start-column="29" selection-end-line="111" selection-end-column="29" />
+            <state relative-caret-position="206">
+              <caret line="106" column="46" lean-forward="true" selection-start-line="106" selection-start-column="46" selection-end-line="106" selection-end-column="46" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
                 <element signature="e#252#380#0" />
@@ -355,19 +344,25 @@
       <option name="project" value="LOCAL" />
       <updated>1555320470512</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="profiles in redis - done&#10;avg all in redis - done&#10;avg user from - to do">
+      <created>1555367448711</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1555367448711</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="925" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13606557" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32914573" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.298995" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.298995" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39949748" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -386,7 +381,8 @@
     <MESSAGE value="working" />
     <MESSAGE value="update_user_profile_after_insert_rating" />
     <MESSAGE value="working on flask" />
-    <option name="LAST_COMMIT_MESSAGE" value="working on flask" />
+    <MESSAGE value="profiles in redis - done&#10;avg all in redis - done&#10;avg user from - to do" />
+    <option name="LAST_COMMIT_MESSAGE" value="profiles in redis - done&#10;avg all in redis - done&#10;avg user from - to do" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/cam.py" />
@@ -476,8 +472,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/API.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="111" column="29" selection-start-line="111" selection-start-column="29" selection-end-line="111" selection-end-column="29" />
+        <state relative-caret-position="206">
+          <caret line="106" column="46" lean-forward="true" selection-start-line="106" selection-start-column="46" selection-end-line="106" selection-end-column="46" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#252#380#0" />
