@@ -9,8 +9,9 @@ from API import RedisApi
 class Ratings(object):
     def __init__(self):
         self.API = RedisApi()
-        # self.API.fill_redis_from_data()
-        # self.API.update_profiles()
+        self.API.fill_redis_from_data()
+        self.API.update_all_profiles()
+        self.API.update_all_avg_ratings_in_redis()
 
     @cherrypy.expose
     def index(self):
@@ -84,7 +85,7 @@ if __name__ == '__main__':
     webapp = Ratings()
     webapp.ratings = RatingsWebService()
 
-
+    cherrypy.server.socket_port = 9898
     cherrypy.quickstart(webapp, '/', conf)
 
 

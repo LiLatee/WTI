@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 import numpy as np
+import redis
 from RedisProfiles_API import RedisProfiles
 from RedisRatings_API import RedisRatings
 from RedisRatingsCount_API import RedisRatingsCount
@@ -152,11 +153,17 @@ class RedisApi:
                 count_of_ratings_dict[genre] = count_of_zeros_and_ones.get(1.0)
             self.redis_count.add_count(id, count_of_ratings_dict)
 
+    def update_all_avg_ratings_in_redis(self):
+        r = redis.StrictRedis(host='localhost', port=6381, db=0)
+        avg_all_as_dict, _ = self.get_all_avg_ratings_as_dict()
+        r.set(name='avg-all', value=str(avg_all_as_dict))
+
+
 
 if __name__ == '__main__':
     r = RedisApi()
-    # df = r.generate_ratings_as_datafram_from_data()
-    # r.fill_redis_from_data()
+    r.fill_redis_from_data()
+    # df = r.generate_ratings_as_dataframe_from_data()
     # user_avg = r.get_user_avg_ratings_as_dict(75)
     # print(user_avg)
     #
@@ -168,3 +175,6 @@ if __name__ == '__main__':
     #
     # all_ratings = r.get_all_ratings_as_json()
     # print(all_ratings)
+    r.update_all_avg_ratings_in_redis()
+
+
