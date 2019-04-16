@@ -2,10 +2,11 @@ import pandas as pd
 import json
 import numpy as np
 import redis
-import re
+
 from RedisProfiles_API import RedisProfiles
 from RedisRatings_API import RedisRatings
 from RedisRatingsCount_API import RedisRatingsCount
+from data_processing import DataProcessing
 
 
 class RedisApi:
@@ -13,36 +14,10 @@ class RedisApi:
         self.redis_ratings = RedisRatings()
         self.redis_profiles = RedisProfiles()
         self.redis_count = RedisRatingsCount()
-
-    def get_merged_table_as_dataframe_from_csv(self):
-        user_rated = pd.read_csv('user_ratedmovies.dat', sep='\t', nrows=100)
-        movie_genres = pd.read_csv('movie_genres.dat', sep='\t')
-        merged = user_rated.merge(movie_genres, on='movieID')
-        merged.to_csv("merged.csv", sep='\t')
-
-        ratings_one_hot = pd.concat([merged, pd.get_dummies(merged['genre'], prefix='genre')], axis=1)
-
-        ratings_one_hot_grouped = ratings_one_hot.groupby(['userID', 'movieID', 'rating']).sum().drop(
-            [col for col in ratings_one_hot.columns if 'date' in col], axis=1)
-
-        genres_columns = list(ratings_one_hot_grouped.columns)
-        return merged, genres_columns
-
-    def generate_ratings_as_dataframe_from_csv(self):
-        user_movie_genre_rating, _ = self.get_merged_table_as_dataframe_from_csv()
-        # result = result[['userID', 'movieID', 'rating', 'genre']]
-        ratings_one_hot = pd.concat(
-            [user_movie_genre_rating, pd.get_dummies(user_movie_genre_rating['genre'], prefix='genre')], axis=1)
-
-        ratings_one_hot_grouped = ratings_one_hot.groupby(['userID', 'movieID', 'rating']).sum().drop(
-            [col for col in ratings_one_hot.columns if 'date' in col], axis=1)
-        # ratings_one_hot_grouped.set_index(['userID','movieID'])
-        ratings_one_hot_grouped.to_csv('ratings.csv', sep='\t')
-
-        return ratings_one_hot_grouped
+        self.data_processing = DataProcessing()
 
     def fill_redis_from_csv(self):
-        self.redis_ratings.add_dataframe(self.generate_ratings_as_dataframe_from_csv())
+        self.redis_ratings.add_dataframe(self.data_processing.generate_ratings_as_dataframe_from_csv())
 
     def post_rating(self, rating):
         self.redis_ratings.add_rating(rating)
@@ -50,7 +25,6 @@ class RedisApi:
         rating_dataframe = pd.Series(data=rating_dict)
         rating_dataframe = rating_dataframe.fillna(value=0)
         self.update_user_profile_after_insert_rating(user_id=rating_dataframe['userID'])
-
         self.update_avg_ratings_for_all_users_after_insert(rating_dict)
         self.update_avg_ratings_for_user_after_insert(rating_dict)
 
@@ -60,17 +34,17 @@ class RedisApi:
         self.redis_ratings.delete_all()
         return "deleted"
 
-    def set_avg_all_ratings_in_redis(self):
+    def set_all_avg_ratings_in_redis(self):
         r = redis.StrictRedis(host='localhost', port=6381, db=0)
-        avg_all_as_dict= self.compute_avg_all_ratings_as_dict()
+        avg_all_as_dict = self.data_processing.get_avg_all_ratings_as_dict(self.redis_ratings.get_all_as_dataframe())
         r.set(name='avg-all', value=json.dumps(avg_all_as_dict))
 
-    def set_all_profiles(self):
-        avg_all = self.compute_avg_all_ratings_as_dict()
+    def set_all_profiles_in_redis(self):
+        avg_all = self.data_processing.get_avg_all_ratings_as_dict(self.redis_ratings.get_all_as_dataframe())
         users_ids_set = self.get_ids_of_all_users_as_set()
 
-        for id in users_ids_set:
-            avg_user = self.get_user_avg_ratings_as_dict(user_id=id)
+        for user_id in users_ids_set:
+            avg_user = self.data_processing.get_user_avg_ratings_as_dict(self.redis_ratings.get_all_as_dataframe(), user_id)
             profile_dict = dict.fromkeys(list(avg_all.keys()), 0)
             for x in avg_all:
                 if np.isnan(avg_user[x]):
@@ -78,9 +52,9 @@ class RedisApi:
                     continue
                 profile_dict[x] = avg_all[x] - avg_user[x]
 
-            self.redis_profiles.set_profile(user_id=id, profile_dict=profile_dict)
+            self.redis_profiles.set_profile(user_id=user_id, profile_dict=profile_dict)
 
-    def set_count_of_ratings(self):
+    def set_all_count_of_ratings_in_redis(self):
         ratings_dataframe = self.redis_ratings.get_all_as_dataframe()
         ratings_dataframe = ratings_dataframe.set_index(keys=['userID', 'movieID', 'rating'])
         list_of_genres = ratings_dataframe.columns
@@ -104,55 +78,26 @@ class RedisApi:
                 count_of_ratings_dict[genre] = count_of_zeros_and_ones.get(1.0).item()
         self.redis_count.set_count_of_all_users(genre_count_dict=count_of_ratings_dict)
 
-    def compute_avg_all_ratings_as_dict(self):
-        ratings = self.redis_ratings.get_all_as_dataframe()
-        # tworzymy slownik ze wszystkich gatunkow
-        genre_columns = ratings.iloc[:, :-3].columns
-        avg_genre_ratings = dict.fromkeys(genre_columns, 0)
-        # dla kazdego gatunku liczymy srednia ocen
-        for x in avg_genre_ratings:
-            avg_genre_ratings[x] = ratings[ratings[x] == 1.0].loc[:, 'rating'].mean()
-
-        # ratingi pomniejszone o srednia ocene danego filmu
-        merged, _ = self.get_merged_table_as_dataframe_from_csv()
-        for x in avg_genre_ratings:
-            merged.loc[merged['genre'] == x, 'rating'] = merged['rating'] - avg_genre_ratings[x]
-
-        return avg_genre_ratings
-
-    def get_avg_all_ratings_as_dict(self):
-        r = redis.StrictRedis(host='localhost', port=6381, db=0)
-
-        return json.loads(r.get('avg-all'))
-
-    def get_user_avg_ratings_as_dict(self, user_id):
-        ratings = self.redis_ratings.get_all_as_dataframe()
-        # tworzymy slownik ze wszystkich gatunkow
-        genre_columns = ratings.iloc[:, :-3].columns
-        avg_genre_ratings = dict.fromkeys(genre_columns, 0)
-
-        # dla kazdego gatunku liczymy srednia dla danego usera
-        for x in avg_genre_ratings:
-            avg_genre_ratings[x] = ratings[(ratings[x] == 1.0) & (ratings['userID'] == user_id)].loc[:, 'rating'].mean()
-
-        # dodajemy userID do slownika
-        avg_genre_ratings['userID'] = user_id
-
-        return avg_genre_ratings
-
     def get_ids_of_all_users_as_set(self):
-        ratings_json = self.get_all_ratings_as_json()
+        #TODO chyba powinienem to brac redisa te ids
+        ratings = self.redis_ratings.get_all_as_dataframe()
+        ratings_json = ratings.to_json(orient='index')
+
         ratings_dict = json.loads(ratings_json, )
         ratings_dataframe = pd.DataFrame(ratings_dict).T
         users_ids_set = set(ratings_dataframe['userID'].values)
         return users_ids_set
 
+###################
+
+
+    def get_all_avg_ratings_as_dict(self):
+        r = redis.StrictRedis(host='localhost', port=6381, db=0)
+        return json.loads(r.get('avg-all'))
+
     def get_user_profile_as_dict(self, user_id):
         return self.redis_profiles.get_profile_as_dict(user_id)
 
-    def get_all_ratings_as_json(self):
-        ratings = self.redis_ratings.get_all_as_dataframe()
-        return ratings.to_json(orient='index')
 
     def get_ratings_count_of_all_genres_as_dict(self):
         return self.redis_count.get_count_of_all_users_as_dict()
@@ -222,10 +167,10 @@ class RedisApi:
 
 if __name__ == '__main__':
     r = RedisApi()
-    # r.fill_redis_from_csv()
-    # r.set_all_avg_ratings_in_redis()
-    # r.update_all_profiles()
-    # r.update_count_of_ratings()
+    r.fill_redis_from_csv()
+    r.set_all_avg_ratings_in_redis()
+    r.set_all_profiles_in_redis()
+    r.set_all_count_of_ratings_in_redis()
     # r.post_rating('{"userID": 755,"movieID": 3,"rating": 1,"genre_Adventure": null,"genre_Comedy": 1,"genre_Drama": null,"genre_Fantasy": null,"genre_Mystery": null,"genre_Romance": 1,"genre_Sci-Fi": null,"genre_Thriller": null,"genre_War": null}')
     # r.update_avg_ratings_for_user_in_redis(None, None, 75)
 

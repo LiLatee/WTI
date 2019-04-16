@@ -6,8 +6,8 @@ app = Flask(__name__)
 
 API = RedisApi()
 API.fill_redis_from_csv()
-API.set_all_profiles()
-API.set_avg_all_ratings_in_redis()
+API.set_all_profiles_in_redis()
+API.set_all_avg_ratings_in_redis()
 
 
 @app.route('/')

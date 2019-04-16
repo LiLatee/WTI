@@ -10,9 +10,9 @@ class Ratings(object):
     def __init__(self):
         self.API = RedisApi()
         self.API.fill_redis_from_csv()
-        self.API.set_all_profiles()
-        self.API.set_avg_all_ratings_in_redis()
-        self.API.set_count_of_ratings()
+        self.API.set_all_profiles_in_redis()
+        self.API.set_all_avg_ratings_in_redis()
+        self.API.set_all_count_of_ratings_in_redis()
 
     @cherrypy.expose
     def index(self):
@@ -28,7 +28,7 @@ class Ratings(object):
 
     @cherrypy.expose
     def avg_genre_ratings_all(self):
-        avg = self.API.get_avg_all_ratings_as_dict()
+        avg = self.API.get_all_avg_ratings_as_dict()
         return str(avg)
 
     # @cherrypy.expose

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6acb09ad-527c-49aa-9636-60d00785fbc7" name="Default Changelist" comment="" />
+    <list default="true" id="6acb09ad-527c-49aa-9636-60d00785fbc7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/data_processing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API.py" beforeDir="false" afterPath="$PROJECT_DIR$/API.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherryPy.py" beforeDir="false" afterPath="$PROJECT_DIR$/cherryPy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flask_API.py" beforeDir="false" afterPath="$PROJECT_DIR$/flask_API.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cherryPy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="21" column="46" lean-forward="true" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
+            <state relative-caret-position="399">
+              <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -25,40 +31,32 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/API.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="106" column="46" lean-forward="true" selection-start-line="106" selection-start-column="46" selection-end-line="106" selection-end-column="46" />
+            <state relative-caret-position="176">
+              <caret line="80" column="42" lean-forward="true" selection-start-line="80" selection-start-column="42" selection-end-line="80" selection-end-column="42" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
-                <element signature="e#252#380#0" />
-                <element signature="e#445#1092#0" />
-                <element signature="e#1157#1803#0" />
-                <element signature="e#1843#1922#0" />
-                <element signature="e#1843#2281#0" />
-                <element signature="e#2325#2381#0" />
-                <element signature="e#2802#3358#0" />
-                <element signature="e#3404#4713#0" />
-                <element signature="e#5506#5607#0" />
-                <element signature="e#2609#3163#0" />
-                <element signature="e#3310#3555#0" />
-                <element signature="e#3614#3669#0" />
-                <element signature="e#3718#3816#0" />
-                <element signature="e#3885#3941#0" />
-                <element signature="e#4010#4076#0" />
-                <element signature="e#7349#7973#0" />
-                <element signature="e#8048#9214#0" />
-                <element signature="e#9073#9514#0" />
+                <element signature="e#1839#1918#0" />
+                <element signature="e#2453#2509#0" />
+                <element signature="e#2563#2748#0" />
+                <element signature="e#2790#3350#0" />
+                <element signature="e#3396#4706#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RedisProfiles_API.py">
+        <entry file="file://$PROJECT_DIR$/data_processing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="11" column="43" lean-forward="true" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
+            <state relative-caret-position="266">
+              <caret line="62" column="45" selection-start-line="62" selection-start-column="45" selection-end-line="62" selection-end-column="45" />
               <folding>
-                <element signature="e#0#12#0" expanded="true" />
+                <element signature="e#0#19#0" expanded="true" />
+                <element signature="e#136#767#0" />
+                <element signature="e#791#1436#0" />
+                <element signature="e#1508#2189#0" />
+                <element signature="e#2242#2796#0" />
+                <element signature="e#2884#3330#0" />
               </folding>
             </state>
           </provider>
@@ -67,8 +65,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RedisRatings_API.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="627">
-              <caret line="33" column="26" lean-forward="true" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
+            <state relative-caret-position="399">
+              <caret line="33" column="26" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -77,13 +75,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RedisProfiles_API.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="12" lean-forward="true" selection-start-column="12" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RedisRatingsCount_API.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="11" selection-start-line="11" selection-end-line="11" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
-              </folding>
+            <state>
+              <caret column="12" lean-forward="true" selection-start-column="12" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -127,6 +131,7 @@
         <option value="$PROJECT_DIR$/RedisProfiles_API.py" />
         <option value="$PROJECT_DIR$/RedisRatingsCount_API.py" />
         <option value="$PROJECT_DIR$/cherryPy.py" />
+        <option value="$PROJECT_DIR$/data_processing.py" />
         <option value="$PROJECT_DIR$/API.py" />
       </list>
     </option>
@@ -189,7 +194,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.cherryPy">
+  <component name="RunManager" selected="Python.API_redis">
     <configuration name="API_redis" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="wtiproj05" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -297,8 +302,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.cherryPy" />
         <item itemvalue="Python.API_redis" />
+        <item itemvalue="Python.cherryPy" />
         <item itemvalue="Python.flask_client" />
         <item itemvalue="Python.flask_API" />
         <item itemvalue="Python.RedisRatings_API" />
@@ -351,18 +356,26 @@
       <option name="project" value="LOCAL" />
       <updated>1555367448711</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="profiles in redis - done&#10;avg all in redis - done&#10;avg user from - to do">
+      <created>1555367854226</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1555367854226</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="925" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13606557" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32914573" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.298995" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.298995" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39949748" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -403,9 +416,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ratings.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="836">
@@ -430,10 +440,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/RedisRatingsCount_API.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="12" lean-forward="true" selection-start-column="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ratings.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="81" lean-forward="true" selection-start-line="11" selection-start-column="81" selection-end-line="11" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cherryPy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/RedisRatings_API.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="33" column="26" lean-forward="true" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
+        <state relative-caret-position="399">
+          <caret line="33" column="26" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -442,58 +476,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RedisProfiles_API.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="43" lean-forward="true" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
+        <state>
+          <caret column="12" lean-forward="true" selection-start-column="12" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RedisRatingsCount_API.py">
+    <entry file="file://$PROJECT_DIR$/data_processing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        <state relative-caret-position="266">
+          <caret line="62" column="45" selection-start-line="62" selection-start-column="45" selection-end-line="62" selection-end-column="45" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cherryPy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="21" column="46" lean-forward="true" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#136#767#0" />
+            <element signature="e#791#1436#0" />
+            <element signature="e#1508#2189#0" />
+            <element signature="e#2242#2796#0" />
+            <element signature="e#2884#3330#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/API.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="106" column="46" lean-forward="true" selection-start-line="106" selection-start-column="46" selection-end-line="106" selection-end-column="46" />
+        <state relative-caret-position="176">
+          <caret line="80" column="42" lean-forward="true" selection-start-line="80" selection-start-column="42" selection-end-line="80" selection-end-column="42" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#252#380#0" />
-            <element signature="e#445#1092#0" />
-            <element signature="e#1157#1803#0" />
-            <element signature="e#1843#1922#0" />
-            <element signature="e#1843#2281#0" />
-            <element signature="e#2325#2381#0" />
-            <element signature="e#2802#3358#0" />
-            <element signature="e#3404#4713#0" />
-            <element signature="e#5506#5607#0" />
-            <element signature="e#2609#3163#0" />
-            <element signature="e#3310#3555#0" />
-            <element signature="e#3614#3669#0" />
-            <element signature="e#3718#3816#0" />
-            <element signature="e#3885#3941#0" />
-            <element signature="e#4010#4076#0" />
-            <element signature="e#7349#7973#0" />
-            <element signature="e#8048#9214#0" />
-            <element signature="e#9073#9514#0" />
+            <element signature="e#1839#1918#0" />
+            <element signature="e#2453#2509#0" />
+            <element signature="e#2563#2748#0" />
+            <element signature="e#2790#3350#0" />
+            <element signature="e#3396#4706#0" />
           </folding>
         </state>
       </provider>
