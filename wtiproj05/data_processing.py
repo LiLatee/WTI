@@ -5,8 +5,9 @@ import numpy as np
 class DataProcessing:
 
     def get_merged_table_as_dataframe_from_csv(self):
-        user_rated = pd.read_csv('user_ratedmovies.dat', sep='\t', nrows=100)
+        user_rated = pd.read_csv(filepath_or_buffer='user_ratedmovies.dat', sep='\t', nrows=100)
         movie_genres = pd.read_csv('movie_genres.dat', sep='\t')
+
         merged = user_rated.merge(movie_genres, on='movieID')
         merged.to_csv("merged.csv", sep='\t')
 
@@ -31,7 +32,7 @@ class DataProcessing:
 
         return ratings_one_hot_grouped
 
-    def get_avg_all_ratings_as_dict(self, ratings_dataframe):
+    def get_all_avg_ratings_as_dict(self, ratings_dataframe):
         # tworzymy slownik ze wszystkich gatunkow
         genre_columns = ratings_dataframe.iloc[:, :-3].columns
         avg_genre_ratings = dict.fromkeys(genre_columns, 0)
@@ -61,7 +62,7 @@ class DataProcessing:
         return avg_genre_ratings
 
     def get_user_profile_as_dict(self, ratings_dataframe, user_id):
-        avg_all = self.get_avg_all_ratings_as_dict(ratings_dataframe)
+        avg_all = self.get_all_avg_ratings_as_dict(ratings_dataframe)
 
         avg_user = self.get_user_avg_ratings_as_dict(ratings_dataframe=ratings_dataframe, user_id=user_id)
         profile_dict = dict.fromkeys(list(avg_all.keys()), 0)

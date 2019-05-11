@@ -32,7 +32,7 @@ def delete_all_ratings():
 
 @app.route('/avg-genre-ratings/all-users', methods=['GET'])
 def avg_genre_ratings_all_users():
-    avg, _ = API.compute_avg_all_ratings_as_dict()
+    avg = API.get_all_avg_ratings_as_dict()
     return Response(str(avg), status=200, mimetype='application/json')
 
 

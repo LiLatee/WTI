@@ -17,7 +17,8 @@ class RedisRatings:
         self.redis.rpush(self.list_name, rating)
 
     def delete_all(self):
-        self.redis.delete(self.list_name)
+        # self.redis.delete(self.list_name)
+        self.redis.flushall()
 
     def get_all_as_dataframe(self):
         ratings_list = self.redis.lrange(self.list_name, 0, -1)
@@ -33,7 +34,12 @@ class RedisRatings:
 
 if __name__ == '__main__':
     r = RedisRatings()
+    dataframe = pd.read_csv(filepath_or_buffer='ratings.csv', sep='\t', nrows=100)
+    r.add_dataframe(dataframe=dataframe)
     r.add_rating('{"userID": 755,"movieID": 3,"rating": 1,"genre_Adventure": null,"genre_Comedy": 1,"genre_Drama": null,"genre_Fantasy": null,"genre_Mystery": null,"genre_Romance": 1,"genre_Sci-Fi": null,"genre_Thriller": null,"genre_War": null}')
+    result = r.get_all_as_dataframe()
+    print(result)
     r.delete_all()
     result = r.get_all_as_dataframe()
     print(result)
+
