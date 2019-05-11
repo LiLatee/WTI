@@ -3,7 +3,7 @@ from cassandra.query import dict_factory
 import json
 
 
-class CassRatings:
+class CassProfiles:
     def __init__(self):
         self.keyspace = "ratings"
         self.table = "user_profiles"
@@ -12,6 +12,9 @@ class CassRatings:
         self.create_keyspace()
         self.session.set_keyspace(keyspace=self.keyspace)
         self.session.row_factory = dict_factory
+
+        self.create_table()
+
 
     def create_keyspace(self):
         self.session.execute("""
@@ -22,25 +25,26 @@ class CassRatings:
     def create_table(self):
         self.session.execute("""
         CREATE TABLE IF NOT EXISTS """ + self.keyspace + """.""" + self.table + """ (
-        user_id int, genre_Action double, genre_Adventure double, 
+        user_id double, genre_Action double, genre_Adventure double, 
         genre_Animation double, genre_Children double, genre_Comedy double, genre_Crime double, genre_Documentary double,
         genre_Drama double, genre_Fantasy double, genre_Film_Noir double, genre_Horror double, genre_Musical double,
         genre_Mystery double, genre_Romance double, genre_Sci_Fi double, genre_Thriller double, genre_War double, genre_Western double,
         PRIMARY KEY(user_id))
         """)
 
-    def push_data_table(self, rating_string_as_dict):
-        rating_string_as_dict = rating_string_as_dict.lower()
-        rating_string_as_dict = rating_string_as_dict.replace('-', '_')
-        rating_string_as_dict = rating_string_as_dict.replace('null', '0')
+    def set_profile(self, user_id, profile_dict):
+        profile_json = json.dumps(profile_dict)
+        profile_json = profile_json.lower()
+        profile_json = profile_json.replace('-', '_')
+        profile_json = profile_json.replace(' _', ' -')
+        profile_json = profile_json.replace('null', '0')
 
-        dict_of_arguments = json.loads(rating_string_as_dict)
+        dict_of_arguments = json.loads(profile_json)
         list_of_input_keys = list(dict_of_arguments.keys())
-        print(rating_string_as_dict)
-        print(list_of_input_keys)
+
 
         fixed_dict_of_arguments = {}
-        fixed_dict_of_arguments['user_id'] = dict_of_arguments['user_id']
+        fixed_dict_of_arguments['user_id'] = user_id
 
         list_af_all_genres = ['genre_action', 'genre_adventure',
                               'genre_animation', 'genre_children', 'genre_comedy', 'genre_crime', 'genre_documentary',
@@ -56,7 +60,7 @@ class CassRatings:
                 fixed_dict_of_arguments[genre] = 0 #TODO wstawiac srednia
 
         list_of_arguments = list(fixed_dict_of_arguments.values())
-        print(list_of_arguments)
+
         rating_push = self.session.prepare("""
         INSERT INTO """ + self.keyspace + """.""" + self.table + """ (user_id, genre_Action, genre_Adventure, 
         genre_Animation, genre_Children, genre_Comedy, genre_Crime, genre_Documentary, genre_Drama, genre_Fantasy, 
@@ -69,10 +73,18 @@ class CassRatings:
 
         # reset session
         self.session = self.cluster.connect(keyspace=self.keyspace)
+        self.session.row_factory = dict_factory
+
+    def get_profile_as_dict(self, user_id):
+        rows = self.session.execute("SELECT * FROM " + self.keyspace + "." + self.table + " WHERE user_id=" + str(user_id) + ";")
+        list = []
+        for row in rows:
+            list.append(row)
+
+        return list[0]
 
     def get_data_table_as_list_of_dicts(self):
         rows = self.session.execute("SELECT * FROM " + self.keyspace + "." + self.table + ";")
-        print(rows)
         list = []
         for row in rows:
             list.append(row)
@@ -86,14 +98,14 @@ class CassRatings:
 
 
 if __name__ == "__main__":
-    cass = CassRatings()
+    cass = CassProfiles()
     cass.create_table()
 
     rating_dict = '''{"user_id": 755, "genre_Adventure": 1.45, "genre_comedy": 1, "genre_drama": 0,
      "genre_fantasy": 4.56, "genre_mystery": 1.1111, "genre_Romance": 1, "genre_sci_fi": 0, "genre_thriller": 0,
      "genre_war": 0}'''
-    cass.push_data_table(rating_dict)
-
+    cass.set_profile(rating_dict)
+    cass.get_profile_as_dict(755)
     result = cass.get_data_table_as_list_of_dicts()
     print(result)
     # cass.clear_table()
