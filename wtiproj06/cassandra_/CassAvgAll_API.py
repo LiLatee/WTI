@@ -78,13 +78,16 @@ class CassAvgAll:
 
     def get_avg_of_all_users_as_dict(self):
         rows = self.session.execute("SELECT * FROM " + self.keyspace + "." + self.table + ";")
-        list = []
+        result_list = []
         for row in rows:
-            row = {key: row[key] for key in self.list_of_all_genres} # remove id key form result dict
-            list.append(row)
-        return list[0]
+            row = {key: row[key] for key in self.list_of_all_genres} # remove id key from result dict
+            result_list.append(row)
+        try:
+            return result_list[0]
+        except IndexError:
+            return dict.fromkeys(self.list_of_all_genres, 0)
 
-    def clear_table(self):
+    def delete_all(self):
         self.session.execute("TRUNCATE " + self.keyspace + "." + self.table + ";")
 
     def delete_table(self):

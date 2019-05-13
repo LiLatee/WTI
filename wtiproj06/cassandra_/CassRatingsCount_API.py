@@ -16,6 +16,14 @@ class CassRatingsCount:
         self.create_table()
 
 
+        self.list_of_all_genres = ['genre_action', 'genre_adventure',
+                              'genre_animation', 'genre_children', 'genre_comedy', 'genre_crime', 'genre_documentary',
+                              'genre_drama', 'genre_fantasy',
+                              'genre_film_noir', 'genre_horror', 'genre_musical', 'genre_mystery', 'genre_romance',
+                              'genre_sci_fi', 'genre_thriller',
+                              'genre_war', 'genre_western']
+
+
     def create_keyspace(self):
         self.session.execute("""
         CREATE KEYSPACE IF NOT EXISTS """ + self.keyspace + """
@@ -43,14 +51,9 @@ class CassRatingsCount:
         fixed_dict_of_arguments = {}
         fixed_dict_of_arguments['user_id'] = user_id
 
-        list_af_all_genres = ['genre_action', 'genre_adventure',
-                              'genre_animation', 'genre_children', 'genre_comedy', 'genre_crime', 'genre_documentary',
-                              'genre_drama', 'genre_fantasy',
-                              'genre_film_noir', 'genre_horror', 'genre_musical', 'genre_mystery', 'genre_romance',
-                              'genre_sci_fi', 'genre_thriller',
-                              'genre_war', 'genre_western']
 
-        for genre in list_af_all_genres:
+
+        for genre in self.list_of_all_genres:
             if genre in list_of_input_keys:
                 fixed_dict_of_arguments[genre] = dict_of_arguments[genre]
             else:
@@ -77,7 +80,10 @@ class CassRatingsCount:
         result_list = []
         for row in rows:
             result_list.append(row)
-        return result_list[0]
+        try:
+            return result_list[0]
+        except IndexError:
+            return dict.fromkeys(self.list_of_all_genres, 0)
 
 
 
@@ -89,7 +95,7 @@ class CassRatingsCount:
             result_list.append(row)
         return result_list
 
-    def clear_table(self):
+    def delete_all(self):
         self.session.execute("TRUNCATE " + self.keyspace + "." + self.table + ";")
 
     def delete_table(self):

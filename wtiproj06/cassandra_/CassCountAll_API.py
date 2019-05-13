@@ -41,7 +41,7 @@ class CassCountAll:
         """)
 
     def set_count_of_all_users(self, genre_count_dict):
-        self.clear_table()
+        self.delete_all()
         genre_count_json = json.dumps(genre_count_dict)
         genre_count_json = genre_count_json.lower()
         genre_count_json = genre_count_json.replace('-', '_')
@@ -76,13 +76,16 @@ class CassCountAll:
 
     def get_count_of_all_users_as_dict(self):
         rows = self.session.execute("SELECT * FROM " + self.keyspace + "." + self.table + ";")
-        list = []
+        result_list = []
         for row in rows:
             row = {key: row[key] for key in self.list_of_all_genres} # remove id key form result dict
-            list.append(row)
-        return list[0]
+            result_list.append(row)
+        try:
+            return result_list[0]
+        except IndexError:
+            return dict.fromkeys(self.list_of_all_genres, 0)
 
-    def clear_table(self):
+    def delete_all(self):
         self.session.execute("TRUNCATE " + self.keyspace + "." + self.table + ";")
 
     def delete_table(self):
@@ -93,10 +96,10 @@ if __name__ == "__main__":
     cass = CassCountAll()
     cass.create_table()
 
-    genre_count_dict = '''{"genre_Adventure": 78, "genre_comedy": 100, "genre_drama": 0,
+    genre_count_json = '''{"genre_Adventure": 78, "genre_comedy": 100, "genre_drama": 0,
      "genre_fantasy": 0, "genre_mystery": 0, "genre_Romance": 1, "genre_sci_fi": 0, "genre_thriller": 0,
      "genre_war": 0}'''
-    cass.set_count_of_all_users(genre_count_json=genre_count_dict)
+    cass.set_count_of_all_users(genre_count_dict=genre_count_json)
 
     result = cass.get_count_of_all_users_as_dict()
     print(result)

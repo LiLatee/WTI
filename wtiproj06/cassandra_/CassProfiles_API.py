@@ -15,6 +15,13 @@ class CassProfiles:
 
         self.create_table()
 
+        self.list_of_all_genres = ['genre_action', 'genre_adventure',
+                                   'genre_animation', 'genre_children', 'genre_comedy', 'genre_crime',
+                                   'genre_documentary',
+                                   'genre_drama', 'genre_fantasy',
+                                   'genre_film_noir', 'genre_horror', 'genre_musical', 'genre_mystery', 'genre_romance',
+                                   'genre_sci_fi', 'genre_thriller',
+                                   'genre_war', 'genre_western']
 
     def create_keyspace(self):
         self.session.execute("""
@@ -42,22 +49,14 @@ class CassProfiles:
         dict_of_arguments = json.loads(profile_json)
         list_of_input_keys = list(dict_of_arguments.keys())
 
-
         fixed_dict_of_arguments = {}
         fixed_dict_of_arguments['user_id'] = user_id
 
-        list_af_all_genres = ['genre_action', 'genre_adventure',
-                              'genre_animation', 'genre_children', 'genre_comedy', 'genre_crime', 'genre_documentary',
-                              'genre_drama', 'genre_fantasy',
-                              'genre_film_noir', 'genre_horror', 'genre_musical', 'genre_mystery', 'genre_romance',
-                              'genre_sci_fi', 'genre_thriller',
-                              'genre_war', 'genre_western']
-
-        for genre in list_af_all_genres:
+        for genre in self.list_of_all_genres:
             if genre in list_of_input_keys:
                 fixed_dict_of_arguments[genre] = dict_of_arguments[genre]
             else:
-                fixed_dict_of_arguments[genre] = 0 #TODO wstawiac srednia
+                fixed_dict_of_arguments[genre] = 0  # TODO wstawiac srednia
 
         list_of_arguments = list(fixed_dict_of_arguments.values())
 
@@ -76,12 +75,16 @@ class CassProfiles:
         self.session.row_factory = dict_factory
 
     def get_profile_as_dict(self, user_id):
-        rows = self.session.execute("SELECT * FROM " + self.keyspace + "." + self.table + " WHERE user_id=" + str(user_id) + ";")
-        list = []
+        rows = self.session.execute(
+            "SELECT * FROM " + self.keyspace + "." + self.table + " WHERE user_id=" + str(user_id) + ";")
+        result_list = []
         for row in rows:
-            list.append(row)
-
-        return list[0]
+            row = {key: row[key] for key in self.list_of_all_genres} # remove id key form result dict
+            result_list.append(row)
+        try:
+            return result_list[0]
+        except IndexError:
+            return dict.fromkeys(self.list_of_all_genres, 0)
 
     def get_data_table_as_list_of_dicts(self):
         rows = self.session.execute("SELECT * FROM " + self.keyspace + "." + self.table + ";")
@@ -90,7 +93,7 @@ class CassProfiles:
             list.append(row)
         return list
 
-    def clear_table(self):
+    def delete_all(self):
         self.session.execute("TRUNCATE " + self.keyspace + "." + self.table + ";")
 
     def delete_table(self):
@@ -109,4 +112,3 @@ if __name__ == "__main__":
     result = cass.get_data_table_as_list_of_dicts()
     print(result)
     # cass.clear_table()
-
