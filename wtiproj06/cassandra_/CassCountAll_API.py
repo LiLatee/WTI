@@ -41,7 +41,7 @@ class CassCountAll:
         """)
 
     def set_count_of_all_users(self, genre_count_dict):
-        self.delete_all()
+        # self.delete_all()
         genre_count_json = json.dumps(genre_count_dict)
         genre_count_json = genre_count_json.lower()
         genre_count_json = genre_count_json.replace('-', '_')

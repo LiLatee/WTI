@@ -41,8 +41,8 @@ class CassAvgAll:
         """)
 
     def set_avg_of_all_users(self, avg_all_dict):
-        self.delete_table()
-        self.create_table()
+        # self.delete_table()
+        # self.create_table()
         avg_all_json = json.dumps(avg_all_dict)
         avg_all_json = avg_all_json.lower()
         avg_all_json = avg_all_json.replace('-', '_')
@@ -80,7 +80,7 @@ class CassAvgAll:
         rows = self.session.execute("SELECT * FROM " + self.keyspace + "." + self.table + ";")
         result_list = []
         for row in rows:
-            row = {key: row[key] for key in self.list_of_all_genres} # remove id key from result dict
+            row = {key: row[key] for key in self.list_of_all_genres}  # remove id key from result dict
             result_list.append(row)
         try:
             return result_list[0]
