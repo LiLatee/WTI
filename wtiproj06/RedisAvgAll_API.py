@@ -1,6 +1,7 @@
 import redis
 import json
 
+
 class RedisAvgAll:
     def __init__(self):
         self.redis = redis.StrictRedis(host='localhost', port=6381, db=0)
@@ -24,6 +25,8 @@ class RedisAvgAll:
         result = json.loads(result)
         return result
 
+    def delete_all(self):
+        self.redis.flushall()
 
 if __name__ == '__main__':
     r = RedisAvgAll()

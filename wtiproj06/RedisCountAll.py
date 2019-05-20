@@ -17,6 +17,8 @@ class RedisCountAll:
     def get_all_profiles(self):
         pass
 
+    def delete_all(self):
+        self.redis.flushall()
 
 if __name__ == '__main__':
     r = RedisCountAll()
