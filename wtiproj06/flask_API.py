@@ -5,16 +5,16 @@ from API import API
 app = Flask(__name__)
 
 API = API()
-# API.fill_redis_from_csv()
-# API.set_all_profiles_in_redis()
-# API.set_all_avg_ratings_in_redis()
-# API.set_all_count_of_ratings_in_redis()
+API.fill_redis_from_csv()
+API.set_all_profiles_in_redis()
+API.set_all_avg_ratings_in_redis()
+API.set_all_count_of_ratings_in_redis()
 
 @app.route('/')
 def home():
     return 'hello'
 
-@app.route('/ratings', methods=['POST'])
+@app.route('/rating', methods=['POST'])
 def post_rating():
     data = API.post_rating(request.data)
     data = data.lower()

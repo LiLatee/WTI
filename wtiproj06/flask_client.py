@@ -1,8 +1,4 @@
 import requests
-import sys
-import os
-import json
-import time
 
 
 def show_details_of_request(r):
@@ -33,7 +29,7 @@ def avg_genre_ratings_user(user_id):
 
 
 def add_rating(data):
-    r = requests.post('http://localhost:5000/ratings', data=data)
+    r = requests.post('http://localhost:5000/rating', data=data)
     show_details_of_request(r)
 
 def delete_all_ratings():
@@ -57,6 +53,17 @@ if __name__ == '__main__':
 # '''
     print("wszystkie oceny")
     print(get_all_ratings())
+    print('srednia dla wszytskich')
+    print(avg_genre_ratings_all_users())
+    print("srednia usera 75 z plikow")
+    print(avg_genre_ratings_user(75))
+    print("profil usera 75 z plikow")
+    print(get_user_profile(75))
+
+    print("czyszczenie bazy")
+    print(delete_all_ratings())
+    print("wszystkie oceny")
+    print(get_all_ratings())
     print("dodaj ocene dla usera 1")
     print(add_rating('{"user_id": 1,"movie_id": 3,"rating": 1,"genre_Adventure": null,"genre_Comedy": 1,"genre_Drama": null,"genre_Fantasy": null,"genre_Mystery": null,"genre_Romance": 1,"genre_Sci_Fi": null,"genre_Thriller": null,"genre_War": null}'))
     print("dodaj ocene dla usera 1")
@@ -70,6 +77,8 @@ if __name__ == '__main__':
     print(get_user_profile(1))
     print("czyszczenie bazy")
     print(delete_all_ratings())
+    print("wszystkie oceny")
+    print(get_all_ratings())
     print("kilka postow")
     print(add_rating('{"user_id": 1,"movie_id": 3,"rating": 1,"genre_Adventure": null,"genre_Comedy": 1,"genre_Drama": null,"genre_Fantasy": null,"genre_Mystery": null,"genre_Romance": 1,"genre_Sci_Fi": null,"genre_Thriller": null,"genre_War": null}'))
     print(add_rating('{"user_id": 1,"movie_id": 2,"rating": 4,"genre_Adventure": 1,"genre_Comedy": null,"genre_Drama": null,"genre_Fantasy": null,"genre_Mystery": null,"genre_Romance": 1,"genre_Sci_Fi": null,"genre_Thriller": null,"genre_War": null}'))
@@ -82,9 +91,13 @@ if __name__ == '__main__':
     print(avg_genre_ratings_user(1))
     print("profil usera 1 z nowych danych")
     print(get_user_profile(1))
-    print(delete_all_ratings())
-    print("wszystkie oceny")
-    print(get_all_ratings())
+    print("srednia usera 2 z nowych danych")
+    print(avg_genre_ratings_user(1))
+    print("profil usera 2 z nowych danych")
+    print(get_user_profile(1))
+    # print(delete_all_ratings())
+    # print("wszystkie oceny")
+    # print(get_all_ratings())
 # while(True):
     #     print(menu)
     #     action = input("Wybierz akcje:")

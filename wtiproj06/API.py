@@ -231,19 +231,32 @@ class API:
         for genre in genres_list_of_new_rating:
             new_user_profile_dict[genre] = new_avg_all_dict[genre] - new_avg_user_dict[genre]
 
-        # print("old_avg_user_dict")
-        # print(old_avg_user_dict)
-        #
-        # print("new_avg_all_dict")
-        # print(new_avg_all_dict)
-        #
-        # print("new_avg_user_dict")
-        # print(new_avg_user_dict)
-        #
-        # print("new_user_profile_dict")
-        # print(new_user_profile_dict)
-
+        for genre in genres_list_of_new_rating:
+            new_user_profile_dict[genre] = new_avg_all_dict[genre] - new_avg_user_dict[genre]
         self.profiles.set_profile(user_id=user_id, profile_dict=new_user_profile_dict)
+
+
+        # all_users_ids = list(self.get_ids_of_all_users_as_set())
+        # for user_id in all_users_ids:
+        #     old_avg_user_dict = self.get_user_avg_ratings_as_dict(user_id=user_id, avg_all_dict=old_avg_all_dict)
+        #     new_avg_all_dict = self.get_all_avg_ratings_as_dict()
+        #
+        #     new_avg_user_dict = self.get_user_avg_ratings_as_dict(user_id=user_id)
+        #     counts_dict = self.count.get_count_of_user_as_dict(user_id=user_id)
+        #     for genre in genres_list_of_new_rating:
+        #         if counts_dict[genre] == 0:
+        #             new_avg_user_dict[genre] = self.get_all_avg_ratings_as_dict()[genre]
+        #         else:
+        #             new_avg_user_dict[genre] = (old_avg_user_dict[genre] * (counts_dict[genre] - 1) + rating_value) / (
+        #                         counts_dict[genre] - 1 + 1)
+        #
+        #     new_user_profile_dict = self.get_user_profile_as_dict(user_id=user_id)
+        #     for genre in genres_list_of_new_rating:
+        #         new_user_profile_dict[genre] = new_avg_all_dict[genre] - new_avg_user_dict[genre]
+        #
+        #     for genre in genres_list_of_new_rating:
+        #         new_user_profile_dict[genre] = new_avg_all_dict[genre] - new_avg_user_dict[genre]
+        #     self.profiles.set_profile(user_id=user_id, profile_dict=new_user_profile_dict)
 
     def update_count_of_ratings_after_post(self, rating_dict):
         user_id = rating_dict['user_id']

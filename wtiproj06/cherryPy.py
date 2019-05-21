@@ -5,7 +5,6 @@ import cherrypy
 from API import API
 
 
-
 class Ratings(object):
     def __init__(self):
         self.API = API()
